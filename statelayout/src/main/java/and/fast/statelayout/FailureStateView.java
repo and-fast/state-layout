@@ -35,10 +35,12 @@ public class FailureStateView extends BaseStateView {
         getStateView()
                 .findViewById(R.id.layout_state_container)
                 .setOnClickListener(view -> {
-                    parentView.showStateView(StateLayout.LOADING_STATE);
-                    new Handler(Looper.myLooper()).postDelayed(() ->
-                                    onAnewRequestNetworkListener.onAnewRequestNetwork(),
-                            duration);
+                     if (onAnewRequestNetworkListener != null){
+                         parentView.showStateView(StateLayout.LOADING_STATE);
+                         new Handler(Looper.myLooper()).postDelayed(() ->
+                                         onAnewRequestNetworkListener.onAnewRequestNetwork(),
+                                 duration);
+                     }
                 });
     }
 

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 重新请求时长 -->
     <integer name="anew_request_delay_millis">500</integer>
 </resources>
