@@ -1,6 +1,11 @@
 # 状态布局
 > 内置 空，加载，离线，错误状态，可自定义状态
 
+# 使用
+```
+implementation 'com.github.and-fast:state-layout:${version}'
+```
+
 # 演示
 <div align=center>
     <img src="desc/Screenshot_1575363752.png" width="240"/>
