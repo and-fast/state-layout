@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">状态布局</string>
+    <string name="empty_data">空数据</string>
+    <string name="failure">失败</string>
+    <string name="offline">离线</string>
+    <string name="loading">加载中</string>
+    <string name="success">成功</string>
+</resources>
