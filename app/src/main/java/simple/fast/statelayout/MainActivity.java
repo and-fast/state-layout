@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onFailure(View view) {
-        mStateLayout.showStateView(StateLayout.FAILURE_STATE, "错误了");
+        mStateLayout.showStateView(StateLayout.FAILURE_STATE, "JSON解析失败");
     }
 
     public void onOffline(View view) {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onEmpty(View view) {
-        mStateLayout.showStateView(StateLayout.EMPTY_STATE, "无数据");
+        mStateLayout.showStateView(StateLayout.EMPTY_STATE, "没有收藏数据");
     }
 
     public void onSuccess(View view) {

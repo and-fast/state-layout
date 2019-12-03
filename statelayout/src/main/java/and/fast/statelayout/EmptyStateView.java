@@ -26,7 +26,7 @@ public class EmptyStateView extends BaseStateView {
     public void showView(CharSequence charSequence) {
         super.showView(charSequence);
         if(!TextUtils.isEmpty(charSequence)){
-            TextView textView = getStateView().findViewById(R.id.tv_empty_subtitle);
+            TextView textView = getStateView().findViewById(R.id.tv_empty_title);
             textView.setText(charSequence);
         }
     }
