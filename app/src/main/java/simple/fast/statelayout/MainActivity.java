@@ -1,12 +1,17 @@
 package simple.fast.statelayout;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 
+import java.util.Objects;
+
+import and.fast.statelayout.OnAnewRequestNetworkListener;
 import and.fast.statelayout.StateLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnAnewRequestNetworkListener {
 
     private StateLayout mStateLayout;
 
@@ -14,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mStateLayout = findViewById(R.id.state_layout);
+        mStateLayout.setOnAnewRequestNetworkListener(this);
     }
 
     public void onLoading(View view) {
@@ -35,5 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onSuccess(View view) {
         mStateLayout.showContentView();
+    }
+
+    @Override
+    public void onAnewRequestNetwork() {
+        new Handler(Objects.requireNonNull(Looper.myLooper()))
+                .postDelayed(() -> mStateLayout.showContentView(), 1000);
     }
 }

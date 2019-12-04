@@ -3,15 +3,13 @@ package and.fast.statelayout;
 import android.os.Handler;
 import android.os.Looper;
 
-import androidx.annotation.LayoutRes;
-
 public class OfflineStateView extends BaseStateView {
 
     private final int layoutResID;
 
     private OnAnewRequestNetworkListener onAnewRequestNetworkListener;
 
-    public OfflineStateView(@LayoutRes int layoutResID) {
+    public OfflineStateView(int layoutResID) {
         this.layoutResID = layoutResID;
     }
 
@@ -46,4 +44,5 @@ public class OfflineStateView extends BaseStateView {
     public void setOnAnewRequestNetworkListener(OnAnewRequestNetworkListener onAnewRequestNetworkListener) {
         this.onAnewRequestNetworkListener = onAnewRequestNetworkListener;
     }
+
 }

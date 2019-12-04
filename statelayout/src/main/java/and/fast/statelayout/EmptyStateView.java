@@ -3,13 +3,11 @@ package and.fast.statelayout;
 import android.text.TextUtils;
 import android.widget.TextView;
 
-import androidx.annotation.LayoutRes;
-
 public class EmptyStateView extends BaseStateView {
 
     private final int layoutResID;
 
-    public EmptyStateView(@LayoutRes int layoutResID){
+    public EmptyStateView(int layoutResID){
         this.layoutResID = layoutResID;
     }
 
@@ -23,16 +21,15 @@ public class EmptyStateView extends BaseStateView {
     }
 
     @Override
-    public void showView(CharSequence charSequence) {
-        super.showView(charSequence);
-        if(!TextUtils.isEmpty(charSequence)){
-            TextView textView = getStateView().findViewById(R.id.tv_empty_title);
-            textView.setText(charSequence);
-        }
+    public Integer getStateCode() {
+        return StateLayout.EMPTY_STATE;
     }
 
     @Override
-    public Integer getStateCode() {
-        return StateLayout.EMPTY_STATE;
+    public void display(CharSequence message, boolean visibility) {
+        if(!TextUtils.isEmpty(message)){
+            TextView textView = getStateView().findViewById(R.id.tv_empty_title);
+            textView.setText(message);
+        }
     }
 }

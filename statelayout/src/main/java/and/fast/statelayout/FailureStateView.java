@@ -5,15 +5,13 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.widget.TextView;
 
-import androidx.annotation.LayoutRes;
-
 public class FailureStateView extends BaseStateView {
 
     private final int layoutResID;
 
     private OnAnewRequestNetworkListener onAnewRequestNetworkListener;
 
-    public FailureStateView(@LayoutRes int layoutResID){
+    public FailureStateView(int layoutResID){
         this.layoutResID = layoutResID;
     }
 
@@ -45,11 +43,10 @@ public class FailureStateView extends BaseStateView {
     }
 
     @Override
-    public void showView(CharSequence charSequence) {
-        super.showView(charSequence);
-        if(!TextUtils.isEmpty(charSequence)){
+    public void display(CharSequence message, boolean visibility) {
+        if(!TextUtils.isEmpty(message)){
             TextView textView = getStateView().findViewById(R.id.tv_failure_message);
-            textView.setText(charSequence);
+            textView.setText(message);
         }
     }
 

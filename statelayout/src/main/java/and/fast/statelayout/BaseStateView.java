@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class BaseStateView implements StateLayout.NetworkState {
+public abstract class BaseStateView implements StateLayout.StateView {
 
     private View      mStateView;
     private ViewGroup mParentView;
@@ -22,12 +22,8 @@ public abstract class BaseStateView implements StateLayout.NetworkState {
     }
 
     @Override
-    public void showView(CharSequence message) {
-        for (int i = 0; i < mParentView.getChildCount(); i++) {
-            mParentView.getChildAt(i).setVisibility(View.GONE);
-        }
+    public void display(CharSequence message, boolean visibility) {
 
-        mStateView.setVisibility(View.VISIBLE);
     }
 
     @Override

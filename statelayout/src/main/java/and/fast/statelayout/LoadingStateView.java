@@ -1,12 +1,10 @@
 package and.fast.statelayout;
 
-import androidx.annotation.LayoutRes;
-
 public class LoadingStateView extends BaseStateView {
 
     private final int layoutResID;
 
-    public LoadingStateView(@LayoutRes int layoutResID){
+    public LoadingStateView(int layoutResID){
         this.layoutResID = layoutResID;
     }
 

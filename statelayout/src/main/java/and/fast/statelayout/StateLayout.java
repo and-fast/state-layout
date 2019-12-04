@@ -3,12 +3,9 @@ package and.fast.statelayout;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.FrameLayout;
-
-import java.util.Map;
-
-import androidx.collection.ArrayMap;
 
 public class StateLayout extends FrameLayout {
 
@@ -17,9 +14,10 @@ public class StateLayout extends FrameLayout {
     public static final Integer LOADING_STATE = 3;
     public static final Integer EMPTY_STATE   = 4;
 
-    private int mDisplayStateLayoutCount; // 已经添加状态布局数量
+    private int mDisplayStateLayoutCount; // 显示的状态布局数量
 
-    private Map<Integer, NetworkState> mStateMap = new ArrayMap<>();
+    private SparseArray<StateView> mStateArray = new SparseArray<>();
+
 
     public StateLayout(Context context) {
         this(context, null);
@@ -48,8 +46,8 @@ public class StateLayout extends FrameLayout {
         ta.recycle();
     }
 
-    public StateLayout addStateView(NetworkState networkState) {
-        mStateMap.put(networkState.getStateCode(), networkState);
+    public StateLayout addStateView(StateView stateView) {
+        mStateArray.put(stateView.getStateCode(), stateView);
         return this;
     }
 
@@ -65,28 +63,35 @@ public class StateLayout extends FrameLayout {
     }
 
     public void showStateView(int stateCode, CharSequence charSequence) {
-        NetworkState networkState = mStateMap.get(stateCode);
+        StateView stateView = mStateArray.get(stateCode);
 
-        if (networkState == null) {
+        if (stateView == null) {
             throw new IllegalStateException("没有这个状态布局，code:" + stateCode);
         }
 
-        if (networkState.getStateView() == null) {
+        if (stateView.getStateView() == null) {
             ++mDisplayStateLayoutCount;
-            networkState.bindParentView(this);
+            stateView.bindParentView(this);
         }
 
-        networkState.showView(charSequence);
+        for (int i = 0; i < mStateArray.size(); i++) {
+            StateView view = mStateArray.get(mStateArray.keyAt(i));
+            if (view.getStateView() != null) {
+                view.display(charSequence, view == stateView);
+                view.getStateView().setVisibility(view == stateView ? VISIBLE : GONE);
+            }
+        }
     }
 
     public void setOnAnewRequestNetworkListener(OnAnewRequestNetworkListener onAnewRequestNetworkListener) {
-        for (Map.Entry<Integer, NetworkState> networkStateEntry : mStateMap.entrySet()) {
-            networkStateEntry.getValue().setOnAnewRequestNetworkListener(onAnewRequestNetworkListener);
+        for (int i = 0; i < mStateArray.size(); i++) {
+            StateView stateView = mStateArray.get(mStateArray.keyAt(i));
+            stateView.setOnAnewRequestNetworkListener(onAnewRequestNetworkListener);
         }
     }
 
 
-    public interface NetworkState {
+    public interface StateView {
 
         Integer getStateCode();
 
@@ -94,8 +99,9 @@ public class StateLayout extends FrameLayout {
 
         void bindParentView(StateLayout parentView);
 
-        void showView(CharSequence message);
+        void display(CharSequence message, boolean visibility);
 
         void setOnAnewRequestNetworkListener(OnAnewRequestNetworkListener onAnewRequestNetworkListener);
     }
+
 }
